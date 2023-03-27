@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\PortfolioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +31,7 @@ Route::controller(PortfolioController::class)->prefix('admin')->name('admin.')->
     Route::post('portfolio/edit', 'update')->name('portfolio.update');
     Route::get('portfolio/delete', 'delete')->name('portfolio.delete');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
