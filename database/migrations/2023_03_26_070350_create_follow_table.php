@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('follow_teble', function (Blueprint $table) {
-            $table->id();
-            $table->string('user_id');
-            $table->string('follow_id');
+        Schema::create('follow', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('follow_id')->unsigned();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('follow_teble');
+        Schema::dropIfExists('follow');
     }
 };
