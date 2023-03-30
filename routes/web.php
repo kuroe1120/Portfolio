@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Tweet\TweetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,18 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\PortfolioController::class, 'index'])->name('home');
-
-
-Route::controller(PortfolioController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-    Route::get('portfolio/create', 'add')->name('portfolio.add');
-    Route::post('portfolio/create', 'create')->name('portfolio.create');
-    Route::get('portfolio', 'index')->name('portfolio.index');
-    Route::get('portfolio/edit', 'edit')->name('portfolio.edit');
-    Route::post('portfolio/edit', 'update')->name('portfolio.update');
-    Route::get('portfolio/delete', 'delete')->name('portfolio.delete');
+Route::controller(TweetController::class)->prefix('tweets')->name('tweet.')->middleware('auth')->group(function () {
+    Route::get('/', 'index')->name('tweet.index');
 });
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
