@@ -20,8 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::controller(TweetController::class)->prefix('tweets')->name('tweet.')->middleware('auth')->group(function () {
-    Route::get('/', 'index')->name('tweet.index');
+Route::controller(TweetController::class)->name('tweet.')->middleware('auth')->group(function () {
+    Route::get('tweet/index', 'index')->name('tweet.index');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -9,10 +9,13 @@ class tweet extends Model
 {
     use HasFactory;
     
+    protected $table = 'tweet';
+    
     protected $guarded = array('id');
 
     public static $rules = array(
         'user_id' => 'required',
         'body' => 'required',
     );
+    
 }
