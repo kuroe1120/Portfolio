@@ -21,7 +21,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::controller(TweetController::class)->name('tweet.')->middleware('auth')->group(function () {
-    Route::get('tweet/index', 'index')->name('tweet.index');
+    Route::get('tweet/index', 'index')->name('index');
+    Route::get('tweet/create', 'create')->name('create');
+    Route::post('tweet/post', 'tweetPost')->name('post');
+    Route::get('tweet/user', 'user')->name('user');
+    Route::get('tweet/follow/{id}','follow')->name('follow');
+    Route::get('tweet/unfollow/{id}', 'unfollow')->name('unfollow');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
