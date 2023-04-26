@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <!--<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -46,6 +46,44 @@
                     <input type="submit" class="btn btn-primary" value="更新">
                 </form>
             </div>
+        </div>-->
+        
+        <div class="twitter__container">
+    <!-- タイトル -->
+    <div class="twitter__title">
+      <!--<span class="twitter-logo"></span>-->
+            
+    
+                    <span><a class="" href="{{ route('tweet.index') }}">ツイート一覧</a></span>
+                    <span><a class="" href="{{ route('tweet.create') }}">ツイート投稿</a></span>
+                    <span><a class="" href="{{ route('tweet.user') }}">ユーザー一覧</a></span>
+    </div>
+
+    <!-- ▼タイムラインエリア scrollを外すと高さ固定解除 -->
+    <div class="twitter__contents scroll">
+        
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h2>ツイート投稿</h2>
+                <form action="{{ route('tweet.post') }}" method="post" enctype="multipart/form-data">
+
+                    @if (count($errors) > 0)
+                        <ul>
+                            @foreach($errors->all() as $e)
+                                <li>{{ $e }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                    
+                    <div class="form-group row">
+                        <div class="col-md-20">
+                            <textarea class="form-control" name="body" rows="5">{{ old('body') }}</textarea>
+                        </div>
+                    @csrf
+                    <input type="submit" class="btn btn-primary" value="更新">
+                </form>
+            </div>
         </div>
+        
     </div>
 @endsection

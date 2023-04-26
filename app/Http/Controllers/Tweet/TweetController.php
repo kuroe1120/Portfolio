@@ -52,11 +52,14 @@ class TweetController extends Controller
      */
     public function user(Request $request) {
         
-        $user = User::get();
+        $user = User::findAll();
         
         return view ('tweet.user', ['users' => $user]);
     }
     
+    /**
+     * フォロー機能
+     */
     public function follow($id) {
         
         $follow = new Follow;
@@ -70,12 +73,37 @@ class TweetController extends Controller
         return redirect('/tweet/index');
     }
     
+    /**
+     * フォロー解除機能
+     */
     public function unfollow($id) {
         
         Follow::where([
           ['user_id', '=', Auth::id()],
           ['follow_id', '=', $id],
         ])->delete();
+        
+        return redirect('/tweet/index');
+    }
+    
+    /**
+     * プロフィール編集画面
+     */
+    public function profile() {
+        
+        $user = User::find(Auth::id());
+        
+        return view ('tweet.profile', ['user' => $user]);
+    }
+    
+    /**
+     * プロフィール編集機能
+     */
+    public function update(Request $request) {
+        
+        $user = User::find(Auth::id());
+        $user->name = $request->name;
+        $user->save();
         
         return redirect('/tweet/index');
     }

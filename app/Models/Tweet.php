@@ -27,7 +27,7 @@ class Tweet extends Model
         
         return DB::table('tweet')
             ->distinct()
-            ->select('tweet.id', 'tweet.user_id', 'tweet.body', 'tweet.created_at')
+            ->select('tweet.id', 'tweet.user_id', 'tweet.body', 'tweet.created_at','users.name')
             ->join('users', 'users.id', '=', 'tweet.user_id')
             ->leftJoin('follow', 'follow.follow_id', '=', 'tweet.user_id')
             ->where('follow.user_id', $id)

@@ -41,5 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    /**
+     * 全ユーザー情報とフォロー数、フォロワー数を取得
+     */
+    public static function findAll() {
+        return User::withCount(['follow', 'follower'])->get();
+    }
+    
+    public function follow() {
+      return $this->hasMany('App\Models\Follow', 'user_id');
+    }
+
+    public function follower() {
+      return $this->hasMany('App\Models\Follow', 'follow_id');
+    }
+    
 }
 

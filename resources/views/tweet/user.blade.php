@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <!--<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -53,7 +53,50 @@
                     </table>
                 </div>
             </div>
+        </div>-->
+        
+        <div class="twitter__container">
+    <!-- タイトル -->
+    <div class="twitter__title">
+      <!--<span class="twitter-logo"></span>-->
+            
+    
+                    <span><a class="" href="{{ route('tweet.index') }}">ツイート一覧</a></span>
+                    <span><a class="" href="{{ route('tweet.create') }}">ツイート投稿</a></span>
+                    <span><a class="" href="{{ route('tweet.user') }}">ユーザー一覧</a></span>
+    </div>
+
+    <!-- ▼タイムラインエリア scrollを外すと高さ固定解除 -->
+    <div class="twitter__contents scroll">
+        
+        @foreach($users as $user)
+
+      <!-- 記事エリア -->
+      <div class="twitter__block">
+        <figure>
+          <img src="{{ secure_asset('image/icon.jpg') }}" />
+        </figure>
+        <div class="twitter__block-text">
+          <div class="name">{{ $user->name }}</div>
+            {{$user->follow_count}}<span class="pagado">フォロー</span>
+            {{$user->follower_count}}<span class="pagado">フォロワー</span>
+          　<div class="date">
+              　@if(Auth::user()->id!= $user->id)
+                    <th><a href="{{ url('tweet/follow/'.$user->id) }}" class="btn btn-primary btn-sm">follow</a></th>
+                    <th><a href="{{ url('tweet/unfollow/'.$user->id) }}" class="btn btn-danger btn-sm">unfollow</a></th>
+            　　@else
+            　　    <th><a href="{{ url('tweet/profile/') }}" class="btn btn-success btn-sm">編集</a></th>
+            　　@endif
+            </div>
+          <div class="twitter__icon">
+            <span class="twitter-bubble"></span>
+            <span class="twitter-loop"></span>
+            <span class="twitter-heart"></span>
+          </div>
         </div>
+      </div>
+    @endforeach
+        
     </div>
 
 @endsection
