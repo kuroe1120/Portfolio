@@ -6,21 +6,15 @@
     
     <div class="twitter__container">
     <!-- タイトル -->
-    <div class="twitter__title">
-      <!--<span class="twitter-logo"></span>-->
-            
-    
-                    <span><a class="" href="{{ route('tweet.index') }}">ツイート一覧</a></span>
-                    <span><a class="" href="{{ route('tweet.create') }}">ツイート投稿</a></span>
-                    <span><a class="" href="{{ route('tweet.user') }}">ユーザー一覧</a></span>
-    </div>
+    @component('component.navbar')
+    @endcomponent
     
     <div class="twitter__contents scroll">
         
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h2>ユーザー名変更</h2>
-                <form action="{{ route('tweet.update') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('user.update') }}" method="post" enctype="multipart/form-data">
 
                     @if (count($errors) > 0)
                         <ul>

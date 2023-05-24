@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Tweet\TweetController;
+use App\Http\Controllers\TweetController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,15 +24,19 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::controller(TweetController::class)->name('tweet.')->middleware('auth')->group(function () {
-    Route::get('tweet/index', 'index')->name('index');
-    Route::get('tweet/create', 'create')->name('create');
-    Route::post('tweet/post', 'tweetPost')->name('post');
-    Route::get('tweet/follow/{id}','follow')->name('follow');
-    Route::get('tweet/unfollow/{id}', 'unfollow')->name('unfollow');
-    Route::get('tweet/profile', 'profile')->name('profile');
-    Route::get('tweet/user', 'user')->name('user');
-    Route::post('tweet/update', 'update')->name('update');
+    Route::get('tweets', 'index')->name('index');
+    Route::post('tweet/store', 'store')->name('store');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::controller(UserController::class)->name('user.')->middleware('auth')->group(function () {
+    Route::get('users', 'index')->name('index');
+    Route::get('user', 'show')->name('show');
+    Route::post('update', 'update')->name('update');
+});
+
+Route::controller(FollowController::class)->middleware('auth')->group(function () {
+    Route::get('follow/{id}','follow')->name('follow');
+    Route::get('unfollow/{id}', 'unfollow')->name('unfollow');
+});
+
 
