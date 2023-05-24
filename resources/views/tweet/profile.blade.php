@@ -13,9 +13,9 @@
         
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <h2>ユーザー名変更</h2>
+                <h2>プロフィール変更</h2>
                 <form action="{{ route('user.update') }}" method="post" enctype="multipart/form-data">
-
+                    
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
@@ -30,6 +30,8 @@
                             <input type="text" id="name" name="name" requiredminlength="4" maxlength="8" size="10" value="{{ $user->name }}">
                         </div>
                     @csrf
+                    <input type="file" name="image">
+                    {{ csrf_field() }}
                     <input type="submit" class="btn btn-primary" value="更新">
                 </form>
             </div>

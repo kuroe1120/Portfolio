@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Follow;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Storage;
 
 class UserController extends Controller
 {
@@ -39,6 +40,12 @@ class UserController extends Controller
         
         $user = User::find(Auth::id());
         $user->name = $request->name;
+        //s3アップロード開始
+        $image = $request->file('image');
+        // バケットの`myprefix`フォルダへアップロード
+        $path = Storage::disk('s3')->putFile('portfolio123123', $image, 'public');
+        // アップロードした画像のフルパスを取得
+        $user->image_path = Storage::disk('s3')->url($path);
         $user->save();
         
         return redirect('/tweets');
