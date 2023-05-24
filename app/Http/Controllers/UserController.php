@@ -18,7 +18,6 @@ class UserController extends Controller
         
         $user = User::findAll();
         $follow_ids = Follow::searchFollowIds(Auth::id());
-        Log::error($follow_ids);
         
         return view ('tweet.user', ['users' => $user, 'follow_ids' => $follow_ids]);
     }
